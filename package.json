@@ -1,0 +1,11 @@
+{
+  "name": "my-life",
+  "version": "1.0.0",
+  "description": "This is my life",
+  "main": "index.js",
+  "scripts": {
+    "test": "nothing"
+  },
+  "author": "hnhuyit",
+  "license": "ISC"
+}
