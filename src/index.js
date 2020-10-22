@@ -11,10 +11,12 @@ var createError = require('http-errors');
 //Cau hinh bien moi truong
 dotenv.config();
 
+//config db
 const db = require("./models");
 const Role = db.role;
 const dbConfig = require('./config/db')
 
+//connect database
 db.mongoose
     .connect(`mongodb://${dbConfig.HOST}:${dbConfig.PORT}/${dbConfig.DB}`, {
         useNewUrlParser: true,
@@ -30,39 +32,39 @@ db.mongoose
     });
 
 function initial() {
-Role.estimatedDocumentCount((err, count) => {
-    if (!err && count === 0) {
-    new Role({
-        name: "user"
-    }).save(err => {
-        if (err) {
-        console.log("error", err);
+    Role.estimatedDocumentCount((err, count) => {
+        if (!err && count === 0) {
+            new Role({
+                name: "user"
+            }).save(err => {
+                if (err) {
+                    console.log("error", err);
+                }
+
+                console.log("added 'user' to roles collection");
+            });
+
+            new Role({
+                name: "moderator"
+            }).save(err => {
+                if (err) {
+                    console.log("error", err);
+                }
+
+                console.log("added 'moderator' to roles collection");
+            });
+
+            new Role({
+                name: "admin"
+            }).save(err => {
+                if (err) {
+                    console.log("error", err);
+                }
+
+                console.log("added 'admin' to roles collection");
+            });
         }
-
-        console.log("added 'user' to roles collection");
     });
-
-    new Role({
-        name: "moderator"
-    }).save(err => {
-        if (err) {
-        console.log("error", err);
-        }
-
-        console.log("added 'moderator' to roles collection");
-    });
-
-    new Role({
-        name: "admin"
-    }).save(err => {
-        if (err) {
-        console.log("error", err);
-        }
-
-        console.log("added 'admin' to roles collection");
-    });
-    }
-});
 }
 
 
@@ -73,11 +75,10 @@ var port = process.env.PORT || 3000
 // view engine setup
 app.set('view engine', 'hbs');
 app.engine('html', require('hbs').__express);
-
-// app.engine('handlebars', require('express-handlebars')());
-// app.set('view engine', 'handlebars');
 app.set('views', './src/views')
 
+
+// others
 app.use(bodyParser.json()) // for parsing application/json
 app.use(bodyParser.urlencoded({ extended: true })) // for parsing application/x-www-form-urlencoded
 app.use('/static', express.static('./src/public'))
@@ -85,19 +86,22 @@ app.use(cookieParser());
 app.use(logger('dev'));//HTTP request logger middleware for node.js
 app.use(cors());
 
-
+//test route
 app.get('/', (req, res) => {
     res.render('home');
 })
 
 // required external
-var productsRouter = require('./routes/products')
+var productRouter = require('./routes/product')
+var turorialRouter= require('./routes/turorial')
+
 // routes
 require('./routes/auth')(app);
 require('./routes/user')(app);
 
 //Defined routes
-app.use('/products', productsRouter);
+app.use('/api/products', productRouter);
+app.use('/api/turorials', turorialRouter);
 
 
 // catch 404 and forward to error handler

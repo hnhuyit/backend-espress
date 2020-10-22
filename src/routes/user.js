@@ -1,5 +1,9 @@
+var express = require('express')
+var router = express.Router();
 const { authJwt } = require("../middlewares");
 const controller = require("../controllers/user");
+
+
 
 module.exports = function (app) {
     app.use(function (req, res, next) {
@@ -12,7 +16,10 @@ module.exports = function (app) {
 
     app.get("/api/test/all", controller.allAccess);
 
-    app.get("/api/test/user", [authJwt.verifyToken], controller.userBoard);
+    app.get("/api/test/user", 
+        [authJwt.verifyToken], 
+        controller.userBoard
+    );
 
     app.get(
         "/api/test/mod",
