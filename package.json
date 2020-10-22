@@ -4,8 +4,27 @@
   "description": "This is my life",
   "main": "index.js",
   "scripts": {
-    "test": "nothing"
+    "test": "nothing",
+    "start": "nodemon --exec babel-node src/index.js"
   },
   "author": "hnhuyit",
-  "license": "ISC"
+  "license": "ISC",
+  "dependencies": {
+    "@babel/core": "^7.12.3",
+    "@babel/node": "^7.12.1",
+    "@babel/preset-env": "^7.12.1",
+    "bcryptjs": "^2.4.3",
+    "body-parser": "^1.19.0",
+    "cookie-parser": "^1.4.5",
+    "cors": "^2.8.5",
+    "dotenv": "^8.2.0",
+    "express": "^4.17.1",
+    "express-handlebars": "^5.1.0",
+    "hbs": "^4.1.1",
+    "http-errors": "^1.8.0",
+    "jsonwebtoken": "^8.5.1",
+    "mongoose": "^5.10.9",
+    "morgan": "^1.10.0",
+    "path": "^0.12.7"
+  }
 }
