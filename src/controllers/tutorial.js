@@ -2,7 +2,7 @@ const db = require("../models");
 const Tutorial = db.tutorials;
 const options = require('../config/pagination')
 
-console.log(options)
+// console.log(options)
 // Create and Save a new Tutorial
 exports.create = (req, res) => {
     // Validate request
