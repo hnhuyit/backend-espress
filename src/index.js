@@ -70,6 +70,7 @@ function initial() {
 
 
 var app = express();
+global.__basedir = __dirname;
 var port = process.env.PORT || 3000
 
 // view engine setup
@@ -85,6 +86,7 @@ app.use('/static', express.static('./src/public'))
 app.use(cookieParser());
 app.use(logger('dev'));//HTTP request logger middleware for node.js
 app.use(cors());
+app.use(express.urlencoded({ extended: true }));
 
 //test route
 app.get('/', (req, res) => {
@@ -93,7 +95,8 @@ app.get('/', (req, res) => {
 
 // required external
 var productRouter = require('./routes/product')
-var turorialRouter= require('./routes/turorial')
+var tutorialRouter= require('./routes/tutorial')
+var fileRouter= require('./routes/file.route')
 
 // routes
 require('./routes/auth')(app);
@@ -101,7 +104,8 @@ require('./routes/user')(app);
 
 //Defined routes
 app.use('/api/products', productRouter);
-app.use('/api/turorials', turorialRouter);
+app.use('/api/tutorials', tutorialRouter);
+app.use('/api/files', fileRouter);
 
 
 // catch 404 and forward to error handler

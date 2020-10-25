@@ -34,6 +34,11 @@ var TutorialSchema = mongoose.Schema({
     });
 
     TutorialSchema.plugin(mongoosePaginate);
+    TutorialSchema.method("toJSON", function () {
+        const { __v, _id, ...object } = this.toObject();
+        object.id = _id;
+        return object;
+    });
 
 var Tutorial = mongoose.model("Tutorial", TutorialSchema);
 

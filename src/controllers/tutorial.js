@@ -1,14 +1,8 @@
 const db = require("../models");
 const Tutorial = db.tutorials;
-const options = require('../config/pagination').default
+const options = require('../config/pagination')
 
-const getPagination = (page, size) => {
-  const limit = size ? +size : process.env.PAGE_SIZE;
-  const offset = page ? page * limit : 0;
-
-  return { limit, offset };
-};
-
+console.log(options)
 // Create and Save a new Tutorial
 exports.create = (req, res) => {
     // Validate request
@@ -41,11 +35,11 @@ exports.create = (req, res) => {
 // Retrieve all Tutorials from the database.
 exports.findAll = (req, res) => {
     const { page, size, title } = req.query;
-    var condition = title ? { title: { $regex: new RegExp(title), $options: "i" } } : {};
+    var query = title ? { title: { $regex: new RegExp(title), $options: "i" } } : {};
 
-    Tutorial.paginate(condition, getPagination(page, size))
+    Tutorial.paginate(query, options.getPagination(page, size))
         .then(data => {
-            res.send(data);
+            res.status(200).send(data);
             // res.render('tutorials/index', {data: data});
         })
         .catch(err => {
@@ -177,7 +171,8 @@ exports.deleteAll = (req, res) => {
 
 // Find all published Tutorials
 exports.findAllPublished = (req, res) => {
-    Tutorial.find({ published: true })
+    const { page, size } = req.query;
+    Tutorial.paginate({ published: true }, options.getPagination(page, size))
         .then(data => {
             res.send(data);
         })
