@@ -1,13 +1,46 @@
 <!DOCTYPE html>
-<html>
-<head>
-    <meta charset="utf-8">
-    <title>Example App</title>
-</head>
-<body>
-    <h1>Header</h1>
+<html lang="en">
+{{> head}}
+<!--
+`body` tag options:
+
+  Apply one or more of the following classes to to the body tag
+  to get the desired effect
+
+  * sidebar-collapse
+  * sidebar-mini
+-->
+<body class="hold-transition sidebar-mini">
+<div class="wrapper">
+  <!-- Navbar -->
+  {{> navbar}}
+  <!-- /.navbar -->
+
+  <!-- Main Sidebar Container -->
+  {{> sidebar}}
+
+  <!-- Content Wrapper. Contains page content -->
+  <div class="content-wrapper">
+    <!-- Content Header (Page header) -->
+    {{> breadcrumb}}
+    <!-- /.content-header -->
+
+    <!-- Main content -->
     {{{body}}}
-    <h1>Footer</h1>
- 
+    <!-- /.content -->
+  </div>
+  <!-- /.content-wrapper -->
+
+  <!-- Control Sidebar -->
+  {{> controlSidebar}}
+  <!-- /.control-sidebar -->
+
+  <!-- Main Footer -->
+  {{> footer}}
+</div>
+<!-- ./wrapper -->
+
+<!-- REQUIRED SCRIPTS -->
+{{> scripts}}
 </body>
 </html>
